@@ -1,6 +1,8 @@
 package main.webapp;
 
 import java.io.IOException;
+
+import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,9 +19,15 @@ public class HelloJsoup {
 	 */
 
 	public static void main(String[] args) throws IOException {
+
+		parseUrl();
+
+	}
+
+	public static void parseUrl() throws IOException {
 		Document doc = Jsoup.connect("https://www.utair.ru/about/aircrafts/").get();
 		String title = doc.title();
-		// Elements el = doc.select("div[name=div.airship-block-info]");
+		AddJson addJson = new AddJson();
 
 		for (int i = 0; i < 7; i++) {
 
@@ -31,7 +39,9 @@ public class HelloJsoup {
 
 			System.out.println("Информация о самолете : " + infoAir);
 
+			addJson.addJsonInfo(infoAir, nameAir);
 		}
+
 	}
 
 }
